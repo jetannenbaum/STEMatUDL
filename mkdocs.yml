@@ -1,0 +1,77 @@
+site_name: STEM at UDL
+
+nav:
+  - Home: index.md
+  - Python:
+    - Why Python: python/whyPython.md
+    - Introduction: python/introduction.md
+    - Setting Up Trinket: python/trinket.md
+    - The Turtle Library: python/turtle.md
+    - Drawing a Square: python/simpleSquare.md
+    - What Else Can a Turtle Do?: python/turtleTricks.md
+    - Python Variables: python/variables.md
+    - Using Variables: python/usingVariables.md
+    - Drawing Four Squares: python/fourSquares.md
+    - Exploring Loops: python/loops.md
+    - Conditionals: python/conditionals.md
+    - Lists: python/lists.md
+    - Functions: python/functions.md
+    - Variable Scope: python/scope.md
+    - Exception Handling: python/tryExcept.md
+    - Recursion: python/recursion.md
+    - Towers of Hanoi: python/towers.md
+    - Eight Queens: python/eight.md
+  - MicroPython:
+    - Raspberry Pi Pico: micropython/pico.md
+    - Thonny: micropython/thonny.md
+    - Installing MicroPython: micropython/install.md
+    - Breadboard: micropython/breadboard.md
+    - Blink Onboard LED: micropython/onboardBlink.md
+    - Alternating LEDs: micropython/alternatingBlink.md
+    - Button Press (Polling): micropython/buttonPressPoll.md
+    - Button Press (Interrupt): micropython/buttonPressInterrupt.md
+    - Pulse Width Modulation: micropython/pwm.md
+    - Analog to Digital Converter: micropython/adc.md
+    - Photo Resistor: micropython/photoResistor.md
+    - NeoPixel Display: micropython/neopixel.md
+    - Digital Display: micropython/ssd1306.md
+    - Joystick: micropython/joystick.md
+    - Buzzer: micropython/buzzer.md
+    - Solutions:
+      - Alternating LEDs: micropython/solutions/lab2.md
+      - Button Press (Polling): micropython/solutions/lab3p.md
+      - Button Press (Interrupt): micropython/solutions/lab3i.md
+      - Pulse Width Modulation: micropython/solutions/lab4.md
+      - Analog to Digital Converter: micropython/solutions/lab5.md
+      - Photo Resistor: micropython/solutions/lab6.md
+      - NeoPixel Display: micropython/solutions/lab7.md
+      - Digital Display: micropython/solutions/lab8.md
+      - Joystick: micropython/solutions/lab9.md
+      - Buzzer: micropython/solutions/lab10.md
+  - Robot Car: robotCar/makerPiRP2040Bot.md
+  - Contact: contacts.md
+
+theme:
+  name: material
+  logo: img/UDL.jpg
+  palette:
+    primary: white
+    accent: red
+  features:
+    - navigation.footer
+
+copyright: Copyright &copy; 2024 JETannenbaum
+
+site_description: 'Resources for teaching Python at Upper Dublin Library.  All content licensed Creative Commons ShareAlike Attribution Noncommercial'
+site_author: 'Jim Tannenbaum'
+repo_name: 'STEMatUDL'
+repo_url: 'https://github.com/jetannenbaum/STEMatUDL'
+
+edit_uri: 'blob/master/docs'
+markdown_extensions:
+  - admonition
+  - attr_list
+  - pymdownx.highlight:
+      linenums: true
+  - pymdownx.details
+  - pymdownx.superfences
