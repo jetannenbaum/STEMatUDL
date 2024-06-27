@@ -59,6 +59,8 @@ theme:
     accent: red
   features:
     - navigation.footer
+extra:
+  homepage: https://www.upperdublinlibrary.org/
 
 copyright: Copyright &copy; 2024 JETannenbaum
 
