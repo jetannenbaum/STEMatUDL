@@ -19,9 +19,11 @@ nav:
     - Functions: python/functions.md
     - Variable Scope: python/scope.md
     - Exception Handling: python/tryExcept.md
-    - Recursion: python/recursion.md
-    - Towers of Hanoi: python/towers.md
-    - Eight Queens: python/eight.md
+    - Recursion:
+      - Explanation: python/recursion.md
+      - Towers of Hanoi: python/towers.md
+      - Eight Queens: python/eight.md
+      - Solutions: python/recursiveSolutions.md
   - MicroPython:
     - Raspberry Pi Pico: micropython/pico.md
     - Thonny: micropython/thonny.md
