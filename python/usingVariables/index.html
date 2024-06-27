@@ -315,10 +315,44 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5" id="__nav_2_5_label" tabindex="0">
+          Sample Code
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Sample Code
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../simpleSquare/" class="md-nav__link">
         Drawing a Square
       </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -1052,49 +1086,7 @@
 <p>In the simple square program we repeated the numbers for the distance and turning angle four times in four different places.  If we wanted to change the size of our box we would have to change the code in four different places.  By using variables we can make our program easier to change.</p>
 <p>Modifying the previous example program, we will still make the turtle go forward 40 steps and then make a right turn of 90 degrees.  However, we will use variables to make our life easier.  Note the inclusion of a set of comments before the code, identifying the author, when the code was created, and any changes to the code</p>
 <h2 id="sample-code">Sample Code</h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># J.E. Tannenbaum</span>
-<span class="c1"># Released: 11/10/2021 - Initial release</span>
-<span class="c1"># 11/10/2022 - Cleaned up and added comments</span>
-
-<span class="kn">import</span> <span class="nn">turtle</span>             <span class="c1"># Load the library</span>
-<span class="n">jet</span> <span class="o">=</span> <span class="n">turtle</span><span class="o">.</span><span class="n">Turtle</span><span class="p">()</span>     <span class="c1"># Create the turtle object and name it</span>
-<span class="n">jet</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="s2">&quot;turtle&quot;</span><span class="p">)</span>       <span class="c1"># Set the shape</span>
-
-<span class="c1"># Set the distance and angle variables</span>
-<span class="n">distance</span> <span class="o">=</span> <span class="mi">40</span>
-<span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
-
-<span class="c1"># Draw the square</span>
-<span class="n">jet</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
-<span class="n">jet</span><span class="o">.</span><span class="n">right</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-<span class="n">jet</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
-<span class="n">jet</span><span class="o">.</span><span class="n">right</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-<span class="n">jet</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
-<span class="n">jet</span><span class="o">.</span><span class="n">right</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-<span class="n">jet</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
-<span class="n">jet</span><span class="o">.</span><span class="n">right</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-<p>Run Square With Variables: <a href="https://trinket.io/python/94326b4743">https://trinket.io/python/94326b4743</a></p>
+<p>Square With Variables: <a href="https://trinket.io/python/94326b4743">https://trinket.io/python/94326b4743</a></p>
 <div class="admonition experiments">
 <p class="admonition-title">Experiments</p>
 <p>Can you make the turtle draw a larger square? </p>
