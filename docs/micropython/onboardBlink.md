@@ -7,7 +7,7 @@
 1. Open Thonny on your Computer
 1. You should see the following in the Shell (Thonny's bottom window)
 
-    ```MicroPython v1.19.1 on 2022-06-18; Raspberry Pi Pico with RP2040```
+    ```MicroPython v1.23.0 on 2024-06-02; Raspberry Pi Pico with RP2040```
 
     ```Type "help()" for more information.```
 

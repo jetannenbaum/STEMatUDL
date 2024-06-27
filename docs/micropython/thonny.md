@@ -5,7 +5,7 @@ Thonny 3.3.3 (2021-01-21) was the first version to support the Raspberry Pi Pico
 
 ## Installing Thonny
 
-The best way to install Thonny is to go to the Thonny web site and look for the "Download" for your opeating system.  That link is here:
+The best way to install Thonny is to go to the Thonny web site and look for the "Download" for your operating system.  That link is here:
 
 [https://thonny.org/](https://thonny.org/)
 
@@ -39,7 +39,7 @@ Thonny runs on Mac, Windows and Linux.
 You can enter the help() function in the main script area and then press the Play button.  This will tell you 
 
 ```
-MicroPython v1.14 on 2021-02-02; Raspberry Pi Pico with RP2040
+MicroPython v1.23.0 on 2024-06-02; Raspberry Pi Pico with RP2040
 Type "help()" for more information.
 >>> %Run -c $EDITOR_CONTENT
 Welcome to MicroPython!
@@ -89,7 +89,7 @@ first stop execution of any program you are running.
 After you press play the following will appear in the console.
 
 ```sh
-MicroPython v1.13-290-g556ae7914 on 2021-01-21; Raspberry Pi Pico with RP2040
+MicroPython v1.23.0 on 2024-06-02; Raspberry Pi Pico with RP2040
 Type "help()" for more information.
 >>> %Run -c $EDITOR_CONTENT
 ```
