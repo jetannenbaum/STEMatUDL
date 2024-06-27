@@ -23,9 +23,11 @@ We'll use the [Trinket web site](https://trinket.io/) because it a student-safe 
     * Create your account by entering the following:
         * Your name
         * A username
-        * Your email (use your school email)
-        * A password (Don't use your school password!)
+        * Your email
+        * A password
+
     ![create account](./img/createAccount.jpg)
+    
     * Create a new python trinket
         * Click on the Blue "New Trinket" button
         * Select "Python"

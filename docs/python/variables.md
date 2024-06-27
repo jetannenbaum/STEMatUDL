@@ -21,10 +21,10 @@
 - X
 - _42
 
-## Algebraic Operations with Varaibles
+## Algebraic Operations with Variables
 - Addition `+`
 - Subtraction `-`
 - Multiplication `*`
 - Division `/`
 - Integer or Floor Division `//`
-- An Example of an Operation and Assignment `+=`
+- Examples of an Operation and Assignment `+=`, `-=`, `*=`, `/=`, or `//=`
