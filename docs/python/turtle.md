@@ -32,7 +32,7 @@ There are five different ways to move a turtle:
 1. jet.goto(x, y)
 
 !!! Challenge
-    Think about the steps needed to draw a square on a piece of paper.
+    Think about the steps needed to draw a square.
 
     Then create a trinket with your turtle and draw a square.
 
