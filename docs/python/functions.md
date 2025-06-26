@@ -18,7 +18,7 @@ def drawSquare():
 ## Passing Variables into a Function
 
 ```python
-def drawPolygon(sides, angle, distance):
+def drawPolygon(sides, distance, angle):
     for i in range(sides):
         jet.forward(distance)
         jet.right(angle)
