@@ -31,4 +31,3 @@ jobs:
       - run: pip install mkdocs
       - run: pip install mkdocs-material
       - run: mkdocs gh-deploy --force --clean --verbose
-          echo test, and deploy your project.
