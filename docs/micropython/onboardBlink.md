@@ -35,7 +35,7 @@ from machine import Pin
 from time import sleep
 
 # Define the GPIO pin that controls the LED
-led1 = Pin(25, Pin.OUT)
+led1 = Pin('LED', Pin.OUT)
 
 # Turn off the LED
 led1.low()
