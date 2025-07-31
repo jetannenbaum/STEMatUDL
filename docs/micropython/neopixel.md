@@ -6,7 +6,7 @@
 
     - Insert the lead from **GND** of the display into ```j3```
     - Insert the lead from **VCC** of the display into ```j1```
-    - Insert the lead from **IN** of the display into ```a1```
+    - Insert the lead from **DIN** of the display into ```a1```
 
 1. When you are finished, your breadboard should look similar to the image below (Note: your wires may be different colors)
 
@@ -40,7 +40,7 @@
         ```
     - Or, you can set all of the pixels at the same time
         ```python
-        strip.fill(0,0,255) 
+        strip.fill((0,0,255)) 
 	    strip.write()
         ```
 
