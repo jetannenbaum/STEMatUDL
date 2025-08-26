@@ -116,40 +116,39 @@ White | Trig
 Yellow | Echo
 Black | Gnd
 
-Connect the other end of the grove wire harness to the grove 5 port.  Once connected, wave your hand over the sensor and have it display distance in the terminal window.  For our purposes, we'll convert the measurement to inches.
+Connect the other end of the grove wire harness to the grove 5 port.  Once connected, wave your hand over the sensor and have it display distance in the terminal window.  For our purposes, we'll use the measurement in centimeters.
 
-The code is below
+**We need a library to use the sensor**
+
+Use your browser and search for: Roberto Sánchez hcsr04. Then select micropython-hcsr04/hcsr0.py at master from the result list.
+
+Copy the code from the page by clicking on the Copy icon
+
+Paste the code into a Thonny window, then save it as hcsr04.py to the Maker Pi RP2040 board (use the Raspberry Pi Pico)
+
+Let's test using the code is below
 
 ```python
-from machine import Pin
-import utime
-import time
+from hcsr04 import HCSR04
+from machine import Pin, PWM
+from time import sleep
 
-# Using Grove 5 Connector
-TRIGGER_PIN = 6 # White Wire
-ECHO_PIN = 26 # Yellow Wire
+# Search for Roberto Sánchez hcsr04 to get the library
 
-# Init HC-SR04P pins
-trigger = Pin(TRIGGER_PIN, Pin.OUT) # send trigger out to sensor
-echo = Pin(ECHO_PIN, Pin.IN) # get the delay interval back
+CHECK_DISTANCE_CM = 25
 
-def ping():
-    trigger.low()
-    utime.sleep_us(2) # Wait 2 microseconds low
-    trigger.high()
-    utime.sleep_us(5) # Stay high for 5 microseconds
-    trigger.low()
-    while echo.value() == 0:
-        signaloff = utime.ticks_us()
-    while echo.value() == 1:
-        signalon = utime.ticks_us()
-    timepassed = signalon - signaloff
-    distance = (timepassed * 0.0343) / 2
-    return distance * .254
+sensor = HCSR04(trigger_pin=6, echo_pin=26)
+buzzer = PWM(Pin(22))
+buzzer.freq(1000)
+buzzer.duty_u16(0)
 
 while True:
-    print("Distance:", ping(), "inches")
-    utime.sleep(.25)
+    distance_cm = sensor.distance_cm()
+    if distance_cm < CHECK_DISTANCE_CM:
+        buzzer.duty_u16(3500)
+        sleep(.5)
+    else: 
+        buzzer.duty_u16(0)
 ```
 
 **Assemble the chassis**
@@ -218,6 +217,7 @@ from machine import Pin, PWM, UART
 import utime
 import time
 from neopixel import NeoPixel
+from hcsr04 import HCSR04
 
 NUMBER_PIXELS = 2
 LED_PIN = 18
@@ -240,27 +240,8 @@ def showColor(color):
         strip[i] = color
     strip.write()
 
-# Using Grove 5 Connector
-TRIGGER_PIN = 6 # White Wire
-ECHO_PIN = 26 # Yellow Wire
-
 # Init HC-SR04P pins
-trigger = Pin(TRIGGER_PIN, Pin.OUT) # send trigger out to sensor
-echo = Pin(ECHO_PIN, Pin.IN) # get the delay interval back
-
-def ping():
-    trigger.low()
-    utime.sleep_us(2) # Wait 2 microseconds low
-    trigger.high()
-    utime.sleep_us(5) # Stay high for 5 microseconds
-    trigger.low()
-    while echo.value() == 0:
-        signaloff = utime.ticks_us()
-    while echo.value() == 1:
-        signalon = utime.ticks_us()
-    timepassed = signalon - signaloff
-    distance = (timepassed * 0.0343) / 2
-    return distance * .254
+sensor = HCSR04(trigger_pin=6, echo_pin=26)
 
 BUZZER_PIN = 22
 buzzer = PWM(Pin(BUZZER_PIN))
@@ -391,16 +372,16 @@ while True:
     elif dir == 'r':
         right()
         color = green
-    distance = ping()  # Check the distance
-    if distance < 5 or dir == 's':   # Obstruction ahead, slow down
+    distance_in = sensor.distance_cm() * 2.54  # Check the distance
+    if distance_in < 5 or dir == 's':   # Obstruction ahead, slow down
         forwardSlow()
         color = yellow
-    if distance < 2.5: # Obstruction too close, stop, and play tone
+    if distance_in < 2.5: # Obstruction too close, stop, and play tone
         stop()
         color = red
         playTone()
     showColor(color)
-    if distance < 2.5:  # If we were too close, back up and turn
+    if distance_in < 2.5:  # If we were too close, back up and turn
         reverseAndTurn()
         forward()
         color = green
