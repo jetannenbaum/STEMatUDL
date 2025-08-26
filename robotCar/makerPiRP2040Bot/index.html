@@ -1282,8 +1282,12 @@
 </tr>
 </tbody>
 </table>
-<p>Connect the other end of the grove wire harness to the grove 5 port.  Once connected, wave your hand over the sensor and have it display distance in the terminal window.  For our purposes, we'll convert the measurement to inches.</p>
-<p>The code is below</p>
+<p>Connect the other end of the grove wire harness to the grove 5 port.  Once connected, wave your hand over the sensor and have it display distance in the terminal window.  For our purposes, we'll use the measurement in centimeters.</p>
+<p><strong>We need a library to use the sensor</strong></p>
+<p>Use your browser and search for: Roberto Sánchez hcsr04. Then select micropython-hcsr04/hcsr0.py at master from the result list.</p>
+<p>Copy the code from the page by clicking on the Copy icon</p>
+<p>Paste the code into a Thonny window, then save it as hcsr04.py to the Maker Pi RP2040 board (use the Raspberry Pi Pico)</p>
+<p>Let's test using the code is below</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1303,44 +1307,26 @@
 <span class="normal">17</span>
 <span class="normal">18</span>
 <span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span>
-<span class="kn">import</span> <span class="nn">utime</span>
-<span class="kn">import</span> <span class="nn">time</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">hcsr04</span> <span class="kn">import</span> <span class="n">HCSR04</span>
+<span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">PWM</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
 
-<span class="c1"># Using Grove 5 Connector</span>
-<span class="n">TRIGGER_PIN</span> <span class="o">=</span> <span class="mi">6</span> <span class="c1"># White Wire</span>
-<span class="n">ECHO_PIN</span> <span class="o">=</span> <span class="mi">26</span> <span class="c1"># Yellow Wire</span>
+<span class="c1"># Search for Roberto Sánchez hcsr04 to get the library</span>
 
-<span class="c1"># Init HC-SR04P pins</span>
-<span class="n">trigger</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">TRIGGER_PIN</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span> <span class="c1"># send trigger out to sensor</span>
-<span class="n">echo</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">ECHO_PIN</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">IN</span><span class="p">)</span> <span class="c1"># get the delay interval back</span>
+<span class="n">CHECK_DISTANCE_CM</span> <span class="o">=</span> <span class="mi">25</span>
 
-<span class="k">def</span> <span class="nf">ping</span><span class="p">():</span>
-    <span class="n">trigger</span><span class="o">.</span><span class="n">low</span><span class="p">()</span>
-    <span class="n">utime</span><span class="o">.</span><span class="n">sleep_us</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Wait 2 microseconds low</span>
-    <span class="n">trigger</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>
-    <span class="n">utime</span><span class="o">.</span><span class="n">sleep_us</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># Stay high for 5 microseconds</span>
-    <span class="n">trigger</span><span class="o">.</span><span class="n">low</span><span class="p">()</span>
-    <span class="k">while</span> <span class="n">echo</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">signaloff</span> <span class="o">=</span> <span class="n">utime</span><span class="o">.</span><span class="n">ticks_us</span><span class="p">()</span>
-    <span class="k">while</span> <span class="n">echo</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">signalon</span> <span class="o">=</span> <span class="n">utime</span><span class="o">.</span><span class="n">ticks_us</span><span class="p">()</span>
-    <span class="n">timepassed</span> <span class="o">=</span> <span class="n">signalon</span> <span class="o">-</span> <span class="n">signaloff</span>
-    <span class="n">distance</span> <span class="o">=</span> <span class="p">(</span><span class="n">timepassed</span> <span class="o">*</span> <span class="mf">0.0343</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-    <span class="k">return</span> <span class="n">distance</span> <span class="o">*</span> <span class="mf">.254</span>
+<span class="n">sensor</span> <span class="o">=</span> <span class="n">HCSR04</span><span class="p">(</span><span class="n">trigger_pin</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">echo_pin</span><span class="o">=</span><span class="mi">26</span><span class="p">)</span>
+<span class="n">buzzer</span> <span class="o">=</span> <span class="n">PWM</span><span class="p">(</span><span class="n">Pin</span><span class="p">(</span><span class="mi">22</span><span class="p">))</span>
+<span class="n">buzzer</span><span class="o">.</span><span class="n">freq</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">buzzer</span><span class="o">.</span><span class="n">duty_u16</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Distance:&quot;</span><span class="p">,</span> <span class="n">ping</span><span class="p">(),</span> <span class="s2">&quot;inches&quot;</span><span class="p">)</span>
-    <span class="n">utime</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">.25</span><span class="p">)</span>
+    <span class="n">distance_cm</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">distance_cm</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">distance_cm</span> <span class="o">&lt;</span> <span class="n">CHECK_DISTANCE_CM</span><span class="p">:</span>
+        <span class="n">buzzer</span><span class="o">.</span><span class="n">duty_u16</span><span class="p">(</span><span class="mi">3500</span><span class="p">)</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="mf">.5</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> 
+        <span class="n">buzzer</span><span class="o">.</span><span class="n">duty_u16</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 <p><strong>Assemble the chassis</strong></p>
 <p><img alt="Board Placement" src="../img/BoardPlacement.jpg" /><img alt="Board Marked" src="../img/BoardMarked.jpg" /></p>
@@ -1571,28 +1557,11 @@
 <span class="normal">169</span>
 <span class="normal">170</span>
 <span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span>
-<span class="normal">179</span>
-<span class="normal">180</span>
-<span class="normal">181</span>
-<span class="normal">182</span>
-<span class="normal">183</span>
-<span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span>
-<span class="normal">187</span>
-<span class="normal">188</span>
-<span class="normal">189</span>
-<span class="normal">190</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">PWM</span><span class="p">,</span> <span class="n">UART</span>
+<span class="normal">172</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">PWM</span><span class="p">,</span> <span class="n">UART</span>
 <span class="kn">import</span> <span class="nn">utime</span>
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">from</span> <span class="nn">neopixel</span> <span class="kn">import</span> <span class="n">NeoPixel</span>
+<span class="kn">from</span> <span class="nn">hcsr04</span> <span class="kn">import</span> <span class="n">HCSR04</span>
 
 <span class="n">NUMBER_PIXELS</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">LED_PIN</span> <span class="o">=</span> <span class="mi">18</span>
@@ -1615,27 +1584,8 @@
         <span class="n">strip</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span>
     <span class="n">strip</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
 
-<span class="c1"># Using Grove 5 Connector</span>
-<span class="n">TRIGGER_PIN</span> <span class="o">=</span> <span class="mi">6</span> <span class="c1"># White Wire</span>
-<span class="n">ECHO_PIN</span> <span class="o">=</span> <span class="mi">26</span> <span class="c1"># Yellow Wire</span>
-
 <span class="c1"># Init HC-SR04P pins</span>
-<span class="n">trigger</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">TRIGGER_PIN</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span> <span class="c1"># send trigger out to sensor</span>
-<span class="n">echo</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="n">ECHO_PIN</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">IN</span><span class="p">)</span> <span class="c1"># get the delay interval back</span>
-
-<span class="k">def</span> <span class="nf">ping</span><span class="p">():</span>
-    <span class="n">trigger</span><span class="o">.</span><span class="n">low</span><span class="p">()</span>
-    <span class="n">utime</span><span class="o">.</span><span class="n">sleep_us</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Wait 2 microseconds low</span>
-    <span class="n">trigger</span><span class="o">.</span><span class="n">high</span><span class="p">()</span>
-    <span class="n">utime</span><span class="o">.</span><span class="n">sleep_us</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># Stay high for 5 microseconds</span>
-    <span class="n">trigger</span><span class="o">.</span><span class="n">low</span><span class="p">()</span>
-    <span class="k">while</span> <span class="n">echo</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">signaloff</span> <span class="o">=</span> <span class="n">utime</span><span class="o">.</span><span class="n">ticks_us</span><span class="p">()</span>
-    <span class="k">while</span> <span class="n">echo</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">signalon</span> <span class="o">=</span> <span class="n">utime</span><span class="o">.</span><span class="n">ticks_us</span><span class="p">()</span>
-    <span class="n">timepassed</span> <span class="o">=</span> <span class="n">signalon</span> <span class="o">-</span> <span class="n">signaloff</span>
-    <span class="n">distance</span> <span class="o">=</span> <span class="p">(</span><span class="n">timepassed</span> <span class="o">*</span> <span class="mf">0.0343</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-    <span class="k">return</span> <span class="n">distance</span> <span class="o">*</span> <span class="mf">.254</span>
+<span class="n">sensor</span> <span class="o">=</span> <span class="n">HCSR04</span><span class="p">(</span><span class="n">trigger_pin</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">echo_pin</span><span class="o">=</span><span class="mi">26</span><span class="p">)</span>
 
 <span class="n">BUZZER_PIN</span> <span class="o">=</span> <span class="mi">22</span>
 <span class="n">buzzer</span> <span class="o">=</span> <span class="n">PWM</span><span class="p">(</span><span class="n">Pin</span><span class="p">(</span><span class="n">BUZZER_PIN</span><span class="p">))</span>
@@ -1766,16 +1716,16 @@
     <span class="k">elif</span> <span class="nb">dir</span> <span class="o">==</span> <span class="s1">&#39;r&#39;</span><span class="p">:</span>
         <span class="n">right</span><span class="p">()</span>
         <span class="n">color</span> <span class="o">=</span> <span class="n">green</span>
-    <span class="n">distance</span> <span class="o">=</span> <span class="n">ping</span><span class="p">()</span>  <span class="c1"># Check the distance</span>
-    <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="ow">or</span> <span class="nb">dir</span> <span class="o">==</span> <span class="s1">&#39;s&#39;</span><span class="p">:</span>   <span class="c1"># Obstruction ahead, slow down</span>
+    <span class="n">distance_in</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="n">distance_cm</span><span class="p">()</span> <span class="o">*</span> <span class="mf">2.54</span>  <span class="c1"># Check the distance</span>
+    <span class="k">if</span> <span class="n">distance_in</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="ow">or</span> <span class="nb">dir</span> <span class="o">==</span> <span class="s1">&#39;s&#39;</span><span class="p">:</span>   <span class="c1"># Obstruction ahead, slow down</span>
         <span class="n">forwardSlow</span><span class="p">()</span>
         <span class="n">color</span> <span class="o">=</span> <span class="n">yellow</span>
-    <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="mf">2.5</span><span class="p">:</span> <span class="c1"># Obstruction too close, stop, and play tone</span>
+    <span class="k">if</span> <span class="n">distance_in</span> <span class="o">&lt;</span> <span class="mf">2.5</span><span class="p">:</span> <span class="c1"># Obstruction too close, stop, and play tone</span>
         <span class="n">stop</span><span class="p">()</span>
         <span class="n">color</span> <span class="o">=</span> <span class="n">red</span>
         <span class="n">playTone</span><span class="p">()</span>
     <span class="n">showColor</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;</span> <span class="mf">2.5</span><span class="p">:</span>  <span class="c1"># If we were too close, back up and turn</span>
+    <span class="k">if</span> <span class="n">distance_in</span> <span class="o">&lt;</span> <span class="mf">2.5</span><span class="p">:</span>  <span class="c1"># If we were too close, back up and turn</span>
         <span class="n">reverseAndTurn</span><span class="p">()</span>
         <span class="n">forward</span><span class="p">()</span>
         <span class="n">color</span> <span class="o">=</span> <span class="n">green</span>
