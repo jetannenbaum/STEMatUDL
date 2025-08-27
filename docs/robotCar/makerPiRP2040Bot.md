@@ -120,7 +120,7 @@ Connect the other end of the grove wire harness to the grove 5 port.  Once conne
 
 **We need a library to use the sensor**
 
-Use your browser and search for: Roberto Sánchez hcsr04. Then select micropython-hcsr04/hcsr0.py at master from the result list.
+Use your browser and go to GitHub [https://github.com/rsc1975/micropython-hcsr04](https://github.com/rsc1975/micropython-hcsr04). Then select hcsr0.py at master from the list of files.
 
 Copy the code from the page by clicking on the Copy icon
 
@@ -132,8 +132,6 @@ Let's test using the code is below
 from hcsr04 import HCSR04
 from machine import Pin, PWM
 from time import sleep
-
-# Search for Roberto Sánchez hcsr04 to get the library
 
 CHECK_DISTANCE_CM = 25
 
